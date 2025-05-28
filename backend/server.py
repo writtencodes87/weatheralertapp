@@ -449,7 +449,7 @@ async def delete_subscription(
 
 @app.get("/api/alerts")
 async def get_recent_alerts():
-    alerts = await alerts_collection.find().sort("processed_at", -1).limit(50).to_list(length=50)
+    alerts = await alerts_collection.find({}, {"_id": 0}).sort("processed_at", -1).limit(50).to_list(length=50)
     return {"alerts": alerts}
 
 # Admin Routes
