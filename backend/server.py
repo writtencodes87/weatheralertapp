@@ -497,7 +497,7 @@ async def send_manual_notification(
 
 @app.get("/api/admin/notifications")
 async def get_admin_notifications(current_admin: dict = Depends(get_current_admin)):
-    notifications = await notifications_collection.find().sort("created_at", -1).limit(100).to_list(length=100)
+    notifications = await notifications_collection.find({}, {"_id": 0}).sort("created_at", -1).limit(100).to_list(length=100)
     return {"notifications": notifications}
 
 @app.get("/api/admin/stats")
