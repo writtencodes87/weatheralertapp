@@ -455,7 +455,7 @@ async def get_recent_alerts():
 # Admin Routes
 @app.get("/api/admin/users")
 async def get_all_users(current_admin: dict = Depends(get_current_admin)):
-    users = await users_collection.find({}, {"password_hash": 0}).to_list(length=None)
+    users = await users_collection.find({}, {"password_hash": 0, "_id": 0}).to_list(length=None)
     return {"users": users, "total": len(users)}
 
 @app.post("/api/admin/notify")
