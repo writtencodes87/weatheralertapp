@@ -433,8 +433,8 @@ async def subscribe_to_counties(
 
 @app.get("/api/my-subscriptions")
 async def get_my_subscriptions(current_user: dict = Depends(get_current_user)):
-    user = await users_collection.find_one({"id": current_user["id"]})
-    return {"subscriptions": user.get("subscriptions", [])}
+    user = await users_collection.find_one({"id": current_user["id"]}, {"_id": 0})
+    return {"subscriptions": user.get("subscriptions", []) if user else []}
 
 @app.delete("/api/subscriptions/{subscription_id}")
 async def delete_subscription(
